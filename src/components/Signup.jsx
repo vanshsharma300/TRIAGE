@@ -30,22 +30,26 @@ const Signup = () => {
         </div>
       </div>
 
-    {  /* This is form second div for sign up */}
+    {  /* This is second div for sign up */}
 
-      <div className="w-full flex flex-col gap-2 items-center justify-center lg:w-1/2 py-7 mt-2">
-        <h1 className="text-3xl font-bold text-slate-600 text-opacity-75 mb-2 ">
-          T R I A G E
+      <div className="flex flex-col gap-2 items-center justify-center md:w-1/2 py-7 md:mt-8">
+      <div className="flex gap-2 items-center justify-center">
+      <h1 className="text-3xl font-bold text-slate-600 text-opacity-75 mb-2 ">
+        T R I A G E
         </h1>
+        <img src={LOGO} className="w-12 h-12 rounded-full mt-[-16px]" />
+      </div>
+       
 
         {/* form starts from here */}
-        <div className="flex flex-col bg-white px-28 py-2 items-center justify-center rounded-lg w-[450px] shadow-2xl">
+        <div className="flex flex-col bg-white px-20 py-2 items-center justify-center rounded-lg w-[450px] shadow-2xl mx-6">
           <div>
             <h1 className="text-3xl font-bold flex justify-center">Register</h1>
             <p className="text-lg font-light my-1">Enter your details:</p>
             <div>
               <label className="text-lg font-semibold ">Email</label>
               <input
-                className="w-[400px] border px-4 py-2 my-3 bg-transparent "
+                className="w-[400px] border px-4 py-2 my-1 bg-transparent "
                 type="email"
                 placeholder="Enter your email"
               />
@@ -54,7 +58,7 @@ const Signup = () => {
             <div>
               <label className="text-lg font-semibold ">Password</label>
               <input
-                className="w-[400px] border px-4 py-2 my-3 bg-transparent "
+                className="w-[400px] border px-4 py-3 my-1 bg-transparent "
                 type="password"
                 placeholder="Enter your password"
               />

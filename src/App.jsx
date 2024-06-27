@@ -5,9 +5,9 @@ import Login from "./components/login";
 function App() {
   return (
     <div>
-      {/* <Signup /> */}
+      <Signup />
       <AdminHome/>
-      {/* <Login />  */}
+      <Login /> 
     </div>
   );
 }

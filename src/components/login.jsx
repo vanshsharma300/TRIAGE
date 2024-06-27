@@ -9,13 +9,11 @@ const login = () => {
       <div className="hidden lg:flex justify-center w-1/2 h-full">
         <div className="w-full h-full border-2 flex flex-col justify-center items-center ">
           <div className=" w-3/4 text-center border   bg-white rounded-xl h-4/5 shadow-2xl">
-          <div className="flex items-center justify-center w-full bg-slate-700 text-white p-4 text-2xl  font-semibold rounded-t-xl border-b-4 border-zinc-500  gap-1">
-            <h1 className="">
-              TRIAGE
-            </h1>
-            <img src={LOGO} className="w-10 h-10 rounded-full"/>
+            <div className="flex items-center justify-center w-full bg-slate-700 text-white p-4 text-2xl  font-semibold rounded-t-xl border-b-4 border-zinc-500  gap-1">
+              <h1 className="">TRIAGE</h1>
+              <img src={LOGO} className="w-10 h-10 rounded-full" />
             </div>
-            <img src={LOGIN} className="w-full h-1/2 shadow-lg" />
+            <img src={LOGIN} className="w-full h-1/2 shadow-2xl" />
 
             <p className="mt-4 text-justify text-zinc-600 text-lg px-3">
               {" "}
@@ -31,13 +29,15 @@ const login = () => {
 
       {/* This is form second div for form */}
 
-      <div className="w-full flex flex-col gap-4 items-center justify-center lg:w-1/2">
-        <h1 className="text-3xl font-bold text-slate-600 text-opacity-75 ">
+      <div className=" flex flex-col gap-4 items-center justify-center lg:w-1/2">
+      <div className="flex gap-2 items-center justify-center">
+      <h1 className="text-3xl font-bold text-slate-600 text-opacity-75 mb-2 ">
         T R I A G E
         </h1>
-
+        <img src={LOGO} className="w-12 h-12 rounded-full mt-[-16px]" />
+      </div>
         {/* form starts from here */}
-        <div className="flex flex-col bg-white px-20 py-10 items-center justify-center rounded-lg  w-[450px] shadow-2xl mx-6">
+        <div className="flex flex-col bg-white px-8 py-10 items-center justify-center rounded-lg  w-[450px] shadow-2xl mx-6">
           <div>
             <h1 className="text-3xl font-bold flex justify-center">
               Welcome Back!
@@ -70,18 +70,15 @@ const login = () => {
                 Log In
               </button>
               <p className="text-lg font-medium text-center">
-                {" "}
                 Don't have an account?
               </p>
               <button className="border-2 py-3 font-medium text-white bg-zinc-900 rounded-full hover:bg-black hover:font-bold ">
                 Sign Up
               </button>
 
-             
               <div className="flex items-center justify-center gap-2">
-              <p className="font-medium">developed by
-              </p>
-             <img src={DRDOICON} className="w-18 h-16 rounded-full" />
+                <p className="font-medium">developed by</p>
+                <img src={DRDOICON} className="w-18 h-16 rounded-full" />
               </div>
             </div>
           </div>
