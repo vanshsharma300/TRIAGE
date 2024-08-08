@@ -1,8 +1,50 @@
-import React from "react";
+import React, { useState } from "react";
 import LOGIN from "../assets/Images/Loginimg.jpeg";
 import LOGO from "../assets/Images/TriageLogo.png";
 import DRDOICON from "../assets/Images/DrdoLogo.jpeg";
-const login = () => {
+import { Link, useNavigate } from "react-router-dom";
+import Validation from "../loginValidation";
+import axios from "axios";
+
+const LogIn = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const [errors, setErrors] = useState({});
+
+  const navigate = useNavigate();
+
+  const handleSubmit = async(e) => {
+    e.preventDefault();
+    console.log(email, password);
+    setErrors(
+      Validation({
+        email,
+        password,
+      })
+    );
+    if(errors.email !== "" && errors.password !== ""){
+      
+   
+     try {
+
+      const {data} = await axios.post('http://localhost:8081/login', {email, password})
+      console.log(data.data[0].admin_)
+      if(data.data[0].admin_==1){
+        navigate("/AdminHome")
+      }
+      else{
+        navigate('/Userhome')
+      }
+    
+
+      console.log(data)
+     } catch (error) {
+       console.log(error)
+     }
+     }
+  };
+
   return (
     <div className="flex w-full h-screen">
       {/* This div is for image */}
@@ -30,35 +72,44 @@ const login = () => {
       {/* This is form second div for form */}
 
       <div className=" flex flex-col gap-4 items-center justify-center lg:w-1/2">
-      <div className="flex gap-2 items-center justify-center">
-      <h1 className="text-3xl font-bold text-slate-600 text-opacity-75 mb-2 ">
-        T R I A G E
-        </h1>
-        <img src={LOGO} className="w-12 h-12 rounded-full mt-[-16px]" />
-      </div>
+        <div className="flex gap-2 items-center justify-center">
+          <h1 className="text-3xl font-bold text-slate-600 text-opacity-75 mb-2 ">
+            T R I A G E
+          </h1>
+          <img src={LOGO} className="w-12 h-12 rounded-full mt-[-16px]" />
+        </div>
         {/* form starts from here */}
         <div className="flex flex-col bg-white px-8 py-10 items-center justify-center rounded-lg  w-[450px] shadow-2xl mx-6">
-          <div>
+          <form action="" onSubmit={handleSubmit}>
             <h1 className="text-3xl font-bold flex justify-center">
-              Welcome Back!
+              Welcome!
             </h1>
             <p className="text-lg font-light my-1">Enter your details:</p>
             <div>
               <label className="text-lg font-semibold ">Email</label>
               <input
+                onChange={(e) => setEmail(e.target.value)}
                 className="w-[400px] border px-4 py-2 my-3 bg-transparent "
-                type="email"
                 placeholder="Enter your email"
               />
+              {errors.email && (
+                <span className="text-danger text-red-600">{errors.email}</span>
+              )}
             </div>
 
             <div>
               <label className="text-lg font-semibold ">Password</label>
               <input
+                onChange={(e) => setPassword(e.target.value)}
                 className="w-[400px] border px-4 py-2 my-3 bg-transparent "
-                type="password"
+               c type="password"
                 placeholder="Enter your password"
               />
+              {errors.password && (
+                <span className="text-danger text-red-600">
+                  {errors.password}
+                </span>
+              )}
             </div>
             <div>
               <button className="hover:underline text-violet-700">
@@ -66,26 +117,32 @@ const login = () => {
               </button>
             </div>
             <div className="flex flex-col gap-2 mt-3">
-              <button className=" border-2 py-3 font-medium text-white bg-violet-500 rounded-full hover:font-bold hover:bg-violet-700">
+              <button
+                onClick={handleSubmit}
+                className=" border-2 py-3 font-medium text-white bg-violet-500 rounded-full hover:font-bold hover:bg-violet-700"
+              >
                 Log In
               </button>
               <p className="text-lg font-medium text-center">
                 Don't have an account?
               </p>
-              <button className="border-2 py-3 font-medium text-white bg-zinc-900 rounded-full hover:bg-black hover:font-bold ">
-                Sign Up
-              </button>
+              <Link
+                to="/signup"
+                className="border-2 py-3 font-medium text-white bg-zinc-900 rounded-full hover:bg-black hover:font-bold text-center"
+              >
+                Create Account
+              </Link>
 
               <div className="flex items-center justify-center gap-2">
                 <p className="font-medium">developed by</p>
                 <img src={DRDOICON} className="w-18 h-16 rounded-full" />
               </div>
             </div>
-          </div>
+          </form>
         </div>
       </div>
     </div>
   );
 };
 
-export default login;
+export default LogIn;
