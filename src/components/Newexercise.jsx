@@ -57,21 +57,35 @@ const Newexercise = () => {
     });
   };
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+  
     try {
       const postData = {
-       exerciseName: exName,
-       quesName ,
-       userId : isUser
+        exerciseName: exName,
+        quesName,
+        userId: isUser
       };
+  
+      // Debugging: Log the payload before sending
+      console.log("Submitting data to the first API:", postData);
+  
+      // First API Call
       const response = await axios.post("http://localhost:8081/submitexercise", postData);
+      console.log("First API Submit response:", response.data);
+  
+      // Debugging: Log the payload before the second API call
+      console.log("Submitting data to the second API:", postData);
+  
+      // Second API Call
       const resData = await axios.post("http://localhost:8081/submit-Exercise-two", postData);
-      console.log("Submit response:", response.data);
-      console.log("Submit second response:", resData.data);
+      console.log("Second API Submit response:", resData.data);
+  
     } catch (error) {
       console.error("Error submitting data:", error);
     }
   };
+  
 
 
   return (
