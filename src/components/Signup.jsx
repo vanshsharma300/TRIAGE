@@ -8,6 +8,7 @@ import axios from "axios";
 
 
 const Signup = () => {
+  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [fpanswer, setfpanswer] = useState("");
@@ -18,7 +19,7 @@ const navigate= useNavigate();
 
   const handleSubmit = async(e) => {
     e.preventDefault();
-    console.log(email, password,fpanswer);
+    console.log(username,email, password,fpanswer);
     setErrors(
       Validation({
         email,
@@ -26,11 +27,10 @@ const navigate= useNavigate();
         fpanswer
       })
     )
-      if( errors.email !=="" && errors.password !== "" && errors.fpanswer !== ""){
-        await axios.post('http://localhost:8081/signup', {email, password,fpanswer})
+      if( errors.email !== "" && errors.password !== "" && errors.fpanswer !== ""){
+        await axios.post('http://localhost:8081/signup', {username,email, password,fpanswer})
         .then(res =>{
-          navigate('/');
-          window.location.reload();
+          navigate('/')
         } )
         .catch(err => console.log(err))
       }
@@ -76,6 +76,15 @@ const navigate= useNavigate();
             <h1 className="text-3xl font-bold flex justify-center">Register</h1>
             <p className="text-lg font-light my-1">Enter your details:</p>
             <div>
+              <label className="text-lg font-semibold ">Name</label>
+              <input
+                onChange={(e) => setUsername(e.target.value)}
+                className="w-[400px] border px-4 py-2 my-1 bg-transparent"
+                placeholder="Enter your email"
+                required
+              /> 
+            </div>
+            <div>
               <label className="text-lg font-semibold ">Email</label>
               <input
                 onChange={(e) => setEmail(e.target.value)}
@@ -119,7 +128,7 @@ const navigate= useNavigate();
             <div className="flex flex-col gap-2 mt-3">
               <button
               type="submit"
-                onClick={handleSubmit}
+                
                 className=" border-2 py-3 font-medium text-white bg-violet-500 rounded-full hover:font-bold hover:bg-violet-700"
               >
                 Sign Up

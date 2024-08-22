@@ -14,7 +14,7 @@ const LogIn = () => {
 
   const navigate = useNavigate();
 
-  const handleSubmit = async(e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(email, password);
     setErrors(
@@ -23,27 +23,26 @@ const LogIn = () => {
         password,
       })
     );
-    if(errors.email !== "" && errors.password !== ""){
-      
-   
-     try {
-
-      const {data} = await axios.post('http://localhost:8081/login', {email, password})
-      console.log(data.data[0].admin_)
-      if(data.data[0].admin_==1){
-        navigate("/AdminHome")
-      }
-      else{
-        navigate('/Userhome')
-      }
     
-
-      console.log(data)
-     } catch (error) {
-       console.log(error)
-     }
-     }
+    if (errors.email !== "" && errors.password !== "") {
+      try {
+        const { data } = await axios.post("http://localhost:8081/login", { email, password });
+        const userId = data.data[0].id;
+  
+        if (data.data[0].admin_ == 1) {
+          localStorage.setItem('admin','yes');
+          navigate(`/AdminHome/${userId}`);
+        } else {
+          navigate(`/Userhome/${userId}`);
+        }
+  
+        console.log(data);
+      } catch (error) {
+        console.log(error);
+      }
+    }
   };
+  
 
   return (
     <div className="flex w-full h-screen">
@@ -91,6 +90,7 @@ const LogIn = () => {
                 onChange={(e) => setEmail(e.target.value)}
                 className="w-[400px] border px-4 py-2 my-3 bg-transparent "
                 placeholder="Enter your email"
+                required
               />
               {errors.email && (
                 <span className="text-danger text-red-600">{errors.email}</span>
@@ -102,8 +102,9 @@ const LogIn = () => {
               <input
                 onChange={(e) => setPassword(e.target.value)}
                 className="w-[400px] border px-4 py-2 my-3 bg-transparent "
-               c type="password"
+                type="password"
                 placeholder="Enter your password"
+                required
               />
               {errors.password && (
                 <span className="text-danger text-red-600">
@@ -111,14 +112,14 @@ const LogIn = () => {
                 </span>
               )}
             </div>
-            <div>
+            {/* <div>
               <button className="hover:underline text-violet-700">
                 Forgot password?
               </button>
-            </div>
+            </div> */}
             <div className="flex flex-col gap-2 mt-3">
               <button
-                onClick={handleSubmit}
+              type="submit"
                 className=" border-2 py-3 font-medium text-white bg-violet-500 rounded-full hover:font-bold hover:bg-violet-700"
               >
                 Log In

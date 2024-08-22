@@ -1,18 +1,19 @@
 import React from 'react'
-import { Link } from "react-router-dom";
+import { Link,useParams } from "react-router-dom";
 import LOGO from "../assets/Images/TriageLogo.png";
 import { useState ,useEffect} from 'react';
 import axios from 'axios';
 
 
 const ListofQuestionnaires = () => {
-  const[info, setInfo] = useState([]);
+  const { id } = useParams();
   
+  const[info, setInfo] = useState([]);
 
-  const handleDelete = async(id)=>{
+  const handleDelete = async(quesName)=>{
     try {
-      console.log("id:",id)
-      await axios.post("http://localhost:8081/deleteQues",{id})
+      console.log("id:",quesName)
+      await axios.post("http://localhost:8081/deleteQues",{quesName})
       window.location.reload();
     } catch (error) {
       console.log(error);
@@ -25,7 +26,6 @@ const ListofQuestionnaires = () => {
     const dataFetch = async()=>{
      try {
       const {data} = await axios.get("http://localhost:8081/getQues")
-      
       console.log("info data :",data);
       setInfo(data.data);
       console.log(info)
@@ -54,7 +54,7 @@ const ListofQuestionnaires = () => {
        <div className="flex items-center justify-between bg-[#8885852a] px-4 md:px-8 py-4 shadow-lg ">
         <div className="flex gap-1 ">
           <Link
-            to="/AdminHome"
+            to={`/AdminHome/${id}`}
             className="text-2xl md:text-3xl font-bold text-stone-600 hover:text-stone-800"
           >
             T R I A G E
@@ -66,7 +66,7 @@ const ListofQuestionnaires = () => {
         </div>
         <ul className="flex gap-4 ">
           <Link
-            to="/ChangePass"
+            to=""
             className="text-cyan-600 hover:underline text-md md:text-lg font-semibold hover:cursor-pointer"
           >
             Change Password
@@ -82,13 +82,13 @@ const ListofQuestionnaires = () => {
       </div>
 
       {/* body of the page */}
-      <div className="py-3 flex flex-col gap-10 min-h-screen container mx-auto px-3">
-        <div className="flex items-center justify-between">
-          <h1 className=" text-xl md:text-4xl font-medium">
+      <div className="py-3 flex flex-col gap-10 min-h-screen container mx-auto px-8">
+        <div className="flex items-center justify-between mt-5">
+          <h1 className=" text-xl md:text-4xl font-medium italic">
             List of Questionnaires
           </h1>
           <Link
-            to="/NewQues"
+            to={`/NewQues/${id}`}
             className="md:text-2xl font-medium text-blue-600 hover:text-blue-500"
           >
             Create Questionnaire
@@ -97,26 +97,23 @@ const ListofQuestionnaires = () => {
         <div className="grid grid-cols-1 text-lg md:grid-cols-2 lg:grid-cols-3 gap-4 cursor-default">
           {
 
-     uniqueData.map((data)=>(
+     uniqueData.map((data,index)=>(
       <div className="rounded-xl shadow-lg hover:shadow-xl">
       <div className="p-5 flex flex-col">
-        <div>
-          
-        </div>
-        <h2 className="text-xl font-medium mt-3">Questionnaire </h2>
-        <p className="text-sm md:text-lg text-slate-400 text-justify mt-2">
+      <h2 className="text-xl font-medium mt-3">Questionnaire {index+1}</h2>
+      <p className="text-sm md:text-lg text-slate-400 text-justify mt-2">
          {data.quesName}
         </p>
         <div className='flex items-center justify-around'>
         <Link
-          to=""
-          className="bg-blue-400 text-blue-800 hover:bg-blue-300 py-2 px-7 rounded-lg text-center mt-2"
+          to={`/QuesShow/${id}/${data.quesName}`}
+          className="bg-violet-500 text-white hover:bg-violet-400 py-2 px-7 rounded-lg text-center mt-2"
         >
           Show
         </Link>
         <button
-        onClick={()=>handleDelete(data.id)}
-          className="bg-blue-400 text-blue-800 hover:bg-blue-300 py-2 px-7 rounded-lg text-center mt-2"
+        onClick={()=>handleDelete(data.quesName)}
+          className="bg-violet-500 text-white hover:bg-violet-400 py-2 px-7 rounded-lg text-center mt-2"
         >
           Delete
         </button>
@@ -124,10 +121,7 @@ const ListofQuestionnaires = () => {
       </div>
     </div>
      ))
-          }
-  
-         
-       
+    }
      
 
           </div>

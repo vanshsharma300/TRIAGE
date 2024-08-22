@@ -1,12 +1,14 @@
 import { React, useState } from "react";
 import LOGO from "../assets/Images/TriageLogo.png";
-import { Link } from "react-router-dom";
+import { Link,useParams } from "react-router-dom";
 import axios from "axios";
 import {useNavigate } from "react-router-dom";
 
 
 
 const Newcase = () => {
+  const { id } = useParams();
+
   const [description, setDescription] = useState("");
   const [respiration, setRespiration] = useState(0);
   const [position, setPosition] = useState(false);
@@ -42,7 +44,7 @@ const Newcase = () => {
           "Content-Type" : "multipart/form-data"
         }
       });
-      navigate("/ListofCases")
+      navigate(`/ListofCases/${id}`)
     } catch (error) {
       console.log("frontend axios", error);
     }

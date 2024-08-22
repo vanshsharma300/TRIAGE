@@ -1,10 +1,12 @@
 import React from "react";
 import LOGO from "../assets/Images/TriageLogo.png";
-
+import { Link,useParams } from "react-router-dom";
 // import Navigation from "../components/Navigation";
-import { Link } from "react-router-dom";
+
 
 const AdminHome = () => {
+  const { id } = useParams();
+
   return (
     <>
       <div className="bg-[#f4f4f4] min-h-[100vh]">
@@ -16,7 +18,7 @@ const AdminHome = () => {
               className="mt-[-4px] cursor-pointer w-10 h-10 rounded-full hover:opacity-75 "
             />
             <Link
-              to="/AdminHome"
+              to={`/AdminHome/${id}`}
               className="text-2xl md:text-3xl font-bold text-stone-600 hover:text-stone-800"
             >
               T R I A G E
@@ -24,13 +26,14 @@ const AdminHome = () => {
           </div>
           <ul className="flex gap-4 ">
             <Link
-              to="/ChangePass"
+              to={`/ChangePass/${id}`}
               className="text-cyan-600 hover:underline text-md md:text-lg font-semibold hover:cursor-pointer"
             >
               Change Password
             </Link>
             <Link
               to="/"
+              onClick={()=>localStorage.setItem('admin',null)}
               className="text-cyan-600 hover:underline text-md md:text-lg font-semibold hover:cursor-pointer"
             >
               Sign Out
@@ -45,19 +48,19 @@ const AdminHome = () => {
           <div className="flex flex-col px-20 md:px-52 gap-8 items-center bg-[#beb9b9] shadow-2xl rounded-xl py-16 md:py-26 ">
             <ol className="flex flex-col items-left justify-center gap-10 ">
               <Link
-                to="/ListofExercise"
+                to={`/ListofExercise/${id}`}
                 className="text-2xl md:text-3xl font-medium text-neutral-800 hover:cursor-pointer hover:text-neutral-600 px-10 py-2"
               >
                 List of Exercise
               </Link>
               <Link
-                to="/ListofCases"
+                to={`/ListofCases/${id}`}
                 className="text-2xl md:text-3xl font-medium text-neutral-800 hover:cursor-pointer hover:text-neutral-600 px-10 py-2"
               >
                 Cases
               </Link>
               <Link
-                to="/ListofQuestionnaires"
+                to={`/ListofQuestionnaires/${id}`}
                 className="text-2xl md:text-3xl font-medium text-neutral-800 hover:cursor-pointer hover:text-neutral-600 px-10 py-2"
               >
                 Questionnaries

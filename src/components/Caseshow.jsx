@@ -6,8 +6,9 @@ import { useEffect } from "react";
 
 
 const Caseshow = () => {
+  
   const[info, setInfo] = useState([]);
-  const {id} = useParams();
+  const {userId,id} = useParams();
  
   useEffect(()=>{  
     
@@ -37,7 +38,7 @@ const Caseshow = () => {
               <div className="flex gap-1">
                
                 <Link
-                  to="/ListofCases"
+                  to={`/ListofCases/${userId}`}
                   className="text-2xl md:text-3xl font-bold italic"
                 >
                 List of Cases
@@ -119,7 +120,6 @@ const Caseshow = () => {
                   <label className="text-left font-medium">Mental Status</label>
                   <select
                     type=""
-
                     className="border-2 border-stone-500 px-3 w-2/4"
                   >
                     <option value="can follow" selected={info.mental_status=== "can follow"? "selected" : ""}>Can follow</option>
@@ -148,14 +148,14 @@ const Caseshow = () => {
                   placeholder="Extra Information..."
                   className="py-3 px-3 border-2 border-stone-500 w-2/4 "
                 ></textarea>
-               
+{/*                
                 <div>
                   <button
                     className="border-2 border-black px-3 bg-zinc-400 font-medium"
                   >
                     Edit
                   </button>
-                </div>
+                </div> */}
               </form>
             
             </div>

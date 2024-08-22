@@ -1,20 +1,29 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import { Link } from "react-router-dom";
+import { Link,useParams } from "react-router-dom";
 import LOGO from "../assets/Images/TriageLogo.png";
 import axios from 'axios';
+
 const ListofCases = () => {
 
+  const { id } = useParams();
   const[info, setInfo] = useState([]);
   
-  const handleDelete = async(id)=>{
+  const handleDelete = async (id) => {
     try {
-      console.log("id:",id)
-      await axios.post("http://localhost:8081/deletecase",{id})
-      window.location.reload();
+      console.log("Deleting case with id:", id);
+      const response = await axios.post("http://localhost:8081/deletecase", { id });
+  
+      if (response.status === 200) {
+        // Remove the deleted case from the info array
+        setInfo(prevInfo => prevInfo.filter(item => item.id !== id));
+      } else {
+        console.log("Error:", response.data.message);
+      }
     } catch (error) {
-      console.log(error);
+      console.log("Error while deleting case:", error);
     }
-  }
+  };
+  
  
   useEffect(()=>{  
     
@@ -42,7 +51,7 @@ const ListofCases = () => {
        <div className="flex items-center justify-between bg-[#8885852a] px-4 md:px-8 py-4 shadow-lg ">
         <div className="flex gap-1 ">
           <Link
-            to="/AdminHome"
+            to={`/AdminHome/${id}`}
             className="text-2xl md:text-3xl font-bold text-stone-600 hover:text-stone-800"
           >
             T R I A G E
@@ -54,7 +63,7 @@ const ListofCases = () => {
         </div>
         <ul className="flex gap-4 ">
           <Link
-            to="/ChangePass"
+            to=""
             className="text-cyan-600 hover:underline text-md md:text-lg font-semibold hover:cursor-pointer"
           >
             Change Password
@@ -76,8 +85,8 @@ const ListofCases = () => {
             List of Cases
           </h1>
           <Link
-            to="/Newcase"
-            className="md:text-2xl font-medium text-blue-600 hover:underline"
+            to={`/Newcase/${id}`}
+            className="md:text-2xl font-medium text-blue-600 hover:text-blue-500"
           >
             Add Case
           </Link>
@@ -86,17 +95,17 @@ const ListofCases = () => {
       
        {
         
-        info.map((data)=>(
+        info.map((data,index)=>(
           <div key={data.id} className="rounded-xl shadow-lg hover:shadow-2xl bg-white">
           <div className="p-5 flex flex-col">
             
-            <h2 className="text-xl font-medium mt-3">Case {data.id}</h2>
+            <h2 className="text-xl font-medium mt-3">Case {index+1}</h2>
             <p className="text-sm md:text-lg text-slate-400 text-justify mt-2">
          {data.description_}
             </p>
             <div className='flex justify-evenly w-full'>
             <Link
-             to ={`/Caseshow/${data.id}`}
+             to ={`/Caseshow/${id}/${data.id}`}
               className="bg-violet-700 text-white hover:bg-violet-600 py-2 px-7 rounded-lg text-center mt-2"
             >
               Show
