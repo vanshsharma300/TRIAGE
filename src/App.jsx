@@ -3,7 +3,6 @@ import ChangePassword from "./components/ChangePassword";
 import ListofCases from "./components/ListofCases";
 import ListofExercise from "./components/ListofExercise";
 import ListofQuestionnaires from "./components/ListofQuestionnaires";
-import Login from "./components/Login";
 import Signup from "./components/Signup";
 
 import { BrowserRouter, Route, Routes } from "react-router-dom";
@@ -20,12 +19,13 @@ import Testcaseshow from "./components/Testcaseshow";
 import ResultTable from "./components/ResultTable";
 import ListofResults from "./components/ListofResults";
 import GlobalResult from "./components/GlobalResult";
+import User from "./components/User";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Login />} />
+        <Route path="/" element={<User />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/AdminHome/:id" element={<AdminHome />} />
         <Route path="/ChangePass/:id" element={<ChangePassword />} />
