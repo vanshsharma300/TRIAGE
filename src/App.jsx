@@ -3,7 +3,7 @@ import ChangePassword from "./components/ChangePassword";
 import ListofCases from "./components/ListofCases";
 import ListofExercise from "./components/ListofExercise";
 import ListofQuestionnaires from "./components/ListofQuestionnaires";
-import LogIn from "./components/LogIn";
+import Login from "./components/Login";
 import Signup from "./components/Signup";
 
 import { BrowserRouter, Route, Routes } from "react-router-dom";
@@ -25,7 +25,7 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<LogIn />} />
+        <Route path="/" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/AdminHome/:id" element={<AdminHome />} />
         <Route path="/ChangePass/:id" element={<ChangePassword />} />

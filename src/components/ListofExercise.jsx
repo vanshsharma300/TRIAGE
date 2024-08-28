@@ -97,7 +97,7 @@ const ListofExercise = () => {
               <p className="text-sm md:text-lg text-slate-400 text-justify mt-2">
                   {data.exerciseName}
                 </p>
-                <div className="flex items-center justify-around">
+                <div className="flex items-center justify-around gap-3">
                   <Link
                     to={`/Exerciseshow/${id}/${data.exerciseName}`}
                     className="bg-violet-500 text-white hover:bg-violet-400 py-2 px-7 rounded-lg text-center mt-2"
