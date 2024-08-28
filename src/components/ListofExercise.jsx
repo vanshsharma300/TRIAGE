@@ -18,6 +18,7 @@ const ListofExercise = () => {
     }
   };
 
+
   useEffect(() => {
     const dataFetch = async () => {
       try {
@@ -103,6 +104,7 @@ const ListofExercise = () => {
                   >
                     Show
                   </Link>
+                  <Link to={`/GlobalResult/${id}/${data.exerciseName}`} className="bg-violet-500 text-white hover:bg-violet-400 py-2 px-7 rounded-lg text-center mt-2"> Global Result</Link>
                   <button
                     onClick={() => handleDelete(data.exerciseName)}
                     className="bg-violet-500 text-white hover:bg-violet-400 py-2 px-7 rounded-lg text-center mt-2"

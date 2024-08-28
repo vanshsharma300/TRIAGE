@@ -6,7 +6,7 @@ import axios from "axios";
 const Testcaseshow = () => {
   const [info, setInfo] = useState({});
   const [selectedColor, setSelectedColor] = useState("");
-  const { exerciseName,userId, id } = useParams();
+  const { exerciseName, userId, id } = useParams();
   const navigate = useNavigate();
   const userAnswer = [];
 
@@ -28,30 +28,33 @@ const Testcaseshow = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     try {
       // Store the selected color in the userAnswer array
       userAnswer.push(selectedColor);
       localStorage.setItem(`answers`, JSON.stringify(userAnswer));
-  
+
+      // Determine if the selected color matches the correct answer
+      const isCorrect = selectedColor === info.color ? 1 : 0;
+
       // Prepare the data to be sent to the backend
       const data = {
         userId: userId,
         quesName: info.description_,
-        exerciseName: exerciseName, // Replace this with actual exercise name if available
-        selectedColor: selectedColor
+        exerciseName: exerciseName,
+        selectedColor: selectedColor,
+        correctans: isCorrect
       };
-  
+
       // Make a POST request to insert the data into the database
       await axios.post("http://localhost:8081/api/save-user-color", data);
-  
+
       // Navigate to the next page
       navigate(`/Jointest/${exerciseName}/${userId}`);
     } catch (error) {
       console.error("Error saving the user's selected color:", error);
     }
   };
-  
 
   return (
     <div className="bg-[#f4f4f4] min-h-[100vh]">
@@ -156,6 +159,9 @@ const Testcaseshow = () => {
               onChange={(e) => setSelectedColor(e.target.value)}
               className="border-2 border-stone-500 px-3 w-2/4"
             >
+              <option value="" className="font-semibold">
+                Select a color
+              </option>
               <option value="black">Black</option>
               <option value="red">Red</option>
               <option value="yellow">Yellow</option>

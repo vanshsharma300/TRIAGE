@@ -1,31 +1,41 @@
-import React, { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
-import axios from 'axios';
+import React, { useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom";
+import axios from "axios";
 import LOGO from "../assets/Images/TriageLogo.png";
 
 const ResultTable = () => {
   const { exerciseName, id } = useParams();
   const [filteredData, setFilteredData] = useState([]);
   const [selectedColors, setSelectedColors] = useState([]);
- const temp = localStorage.getItem('admin')=='yes' ?`/AdminHome/24` :`/Userhome/${id}`
+  const temp =
+    localStorage.getItem("admin") == "yes"
+      ? `/AdminHome/24`
+      : `/Userhome/${id}`;
 
   useEffect(() => {
     const dataFetch = async () => {
       try {
-        const { data: selectedColorsData } = await axios.get(`http://localhost:8081/getSelectedColors/${id}`);
-        const { data: caseData } = await axios.get(`http://localhost:8081/getcase`);
+        const { data: selectedColorsData } = await axios.get(
+          `http://localhost:8081/getSelectedColors/${id}`
+        );
+        const { data: caseData } = await axios.get(
+          `http://localhost:8081/getcase`
+        );
 
-        const temp = selectedColorsData.data.filter(color => color.exerciseName === exerciseName);
+        const temp = selectedColorsData.data.filter(
+          (color) => color.exerciseName === exerciseName
+        );
 
         setSelectedColors(temp);
 
         // Filter the caseData based on matching description_ with quesName
-        const filtered = caseData.data.filter(caseItem =>
-          temp.some(selectedColor => selectedColor.quesName === caseItem.description_)
+        const filtered = caseData.data.filter((caseItem) =>
+          temp.some(
+            (selectedColor) => selectedColor.quesName === caseItem.description_
+          )
         );
 
         setFilteredData(filtered);
-
       } catch (error) {
         console.log(error);
       }
@@ -34,7 +44,7 @@ const ResultTable = () => {
   }, [id, exerciseName]);
 
   return (
-    <div className='bg-[#f4f4f4]'>
+    <div className="bg-[#f4f4f4]">
       <div className="flex items-center justify-between bg-[#8885852a] px-4 md:px-8 py-4 shadow-lg ">
         <div className="flex gap-1 ">
           <img
@@ -63,8 +73,8 @@ const ResultTable = () => {
           </Link>
         </ul>
       </div>
-      <div className='mb-6 mt-8 flex justify-around '>
-        <h1 className='text-3xl font-bold text-red-600'>Result of Exercise</h1>
+      <div className="mb-6 mt-8 flex justify-around ">
+        <h1 className="text-3xl font-bold text-red-600">Result of Exercise</h1>
       </div>
       <div className="flex flex-col">
         <div className="overflow-x-auto sm:-mx-6 lg:-mx-8 ">
@@ -73,26 +83,46 @@ const ResultTable = () => {
               <table className="border min-w-full text-center text-sm font-light">
                 <thead className="font-medium bg-amber-950 text-white">
                   <tr>
-                    <th scope="col" className="px-6 py-4">Case</th>
-                    <th scope="col" className="px-6 py-4">Correct Answer</th>
-                    <th scope="col" className="px-6 py-4">Your Answer</th>
+                    <th scope="col" className="px-6 py-4">
+                      Case
+                    </th>
+                    <th scope="col" className="px-6 py-4">
+                      Correct Answer
+                    </th>
+                    <th scope="col" className="px-6 py-4">
+                      Trainee's Answer
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
                   {filteredData.map((item) => {
-                    const userColor = selectedColors.find(color => color.quesName === item.description_);
+                    const userColor = selectedColors.find(
+                      (color) => color.quesName === item.description_
+                    );
                     return (
-                      <tr key={item.id} className='font-medium border-b border-zinc-800'>
-                        <td className="whitespace-nowrap px-6 py-4">{item.description_}</td>
-                        <td className="whitespace-nowrap px-6 py-4">{item.color}</td>
-                        <td className="whitespace-nowrap px-6 py-4">{userColor?.selectedColor}</td>
+                      <tr
+                        key={item.id}
+                        className="font-medium border-b border-zinc-800"
+                      >
+                        <td className="whitespace-nowrap px-6 py-4">
+                          {item.description_}
+                        </td>
+                        <td className="whitespace-nowrap px-6 py-4">
+                          {item.color}
+                        </td>
+                        <td className="whitespace-nowrap px-6 py-4">
+                          {userColor?.selectedColor}
+                        </td>
                       </tr>
                     );
                   })}
                 </tbody>
               </table>
-              <div className='flex mt-5 justify-center'>
-                <Link to={temp} className="border-2 border-black px-4 py-1 bg-zinc-400 font-medium rounded-lg">
+              <div className="flex mt-5 justify-center">
+                <Link
+                  to={temp}
+                  className="border-2 border-black px-4 py-1 bg-zinc-400 font-medium rounded-lg"
+                >
                   Back
                 </Link>
               </div>
@@ -101,7 +131,7 @@ const ResultTable = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default ResultTable;

@@ -19,6 +19,7 @@ import Exerciseshow from "./components/Exerciseshow";
 import Testcaseshow from "./components/Testcaseshow";
 import ResultTable from "./components/ResultTable";
 import ListofResults from "./components/ListofResults";
+import GlobalResult from "./components/GlobalResult";
 
 function App() {
   return (
@@ -43,6 +44,7 @@ function App() {
         <Route path="/Testcaseshow/:exerciseName/:userId/:id" element={<Testcaseshow />} />
         <Route path="/ResultTable/:exerciseName/:id" element={<ResultTable />} />
         <Route path="/ListofResults/:id" element={<ListofResults/>} />
+        <Route path="/GlobalResult/:id/:exerciseName" element={<GlobalResult />} />
       </Routes>
     </BrowserRouter>
   );

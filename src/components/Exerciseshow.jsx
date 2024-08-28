@@ -119,14 +119,14 @@ console.log(name);
                       ))}
                     </tbody>
                   </table>
-                  <div className="flex items-center justify-center mt-10 mb-10">
+                  {/* <div className="flex items-center justify-center mt-10 mb-10">
                     <button
                       type="submit"
                       className="border-2 border-black px-3 bg-zinc-400 font-medium"
                     >
                       Submit
                     </button>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>
