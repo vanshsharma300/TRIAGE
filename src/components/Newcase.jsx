@@ -61,7 +61,7 @@ const Newcase = () => {
               className="mt-[-4px] cursor-pointer w-10 h-10 rounded-full hover:opacity-75 "
             />
             <Link
-              to="/AdminHome"
+              to=""
               className="text-2xl md:text-3xl font-bold text-stone-600 hover:text-stone-800"
             >
               T R I A G E
@@ -69,13 +69,13 @@ const Newcase = () => {
           </div>
           <ul className="flex gap-4 ">
             <Link
-              to="/ChangePass"
+              to=""
               className="text-cyan-600 hover:underline text-md md:text-lg font-semibold hover:cursor-pointer"
             >
               Change Password
             </Link>
             <Link
-              to="/"
+              to=""
               className="text-cyan-600 hover:underline text-md md:text-lg font-semibold hover:cursor-pointer"
             >
               Sign Out
@@ -152,6 +152,7 @@ const Newcase = () => {
                 type=""
                 className="border-2 border-stone-500 px-3 w-2/4"
               >
+                <option className="font-semibold">Select from here</option>
                 <option value="black">Black</option>
                 <option value="red">Red</option>
                 <option value="yellow">Yellow</option>

@@ -110,6 +110,7 @@ const Newexercise = () => {
             <div className="flex flex-col items-center mt-10 mb-8 gap-2">
               <label className="text-lg font-bold">Select the questionnaire</label>
               <select className="w-1/2 border-2 border-zinc-800 px-2 py-1"  onChange={(e)=>setQuesname(e.target.value)}>
+              <option value="" className="font-semibold">Select from here</option>
                 {questionnaires.map((questionnaire) => (
                   <option key={questionnaire.Qid} value={questionnaire.quesName}>
                     {questionnaire.quesName}
